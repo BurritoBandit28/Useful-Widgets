@@ -24,17 +24,15 @@ public abstract class TitleScreenMixin extends Screen {
 
     @Inject(at = @At("RETURN"), method = "initWidgetsNormal")
     private void addButtonOne(int y, int spacingY, CallbackInfo ci) {
-        if (Main.LOAD_ONE == true) {
+        if (Main.LOAD_ONE) {
             this.addDrawableChild(new TexturedButtonWidget(this.width / 2 - 124, y, 20, 20, 0, 0, 20, Main.TEXTURE_ONE, 32, 64, (button) -> {
                 try {
                     Desktop.getDesktop().browse(java.net.URI.create(Main.URL_ONE));
-                } catch (IOException e) {
-                    e.printStackTrace();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-                if (Main.CLOSE_ON_USE_ONE == true) {
+                if (Main.CLOSE_ON_USE_ONE) {
                     this.client.scheduleStop();
                 }
 
@@ -44,17 +42,15 @@ public abstract class TitleScreenMixin extends Screen {
 
     @Inject(at = @At("RETURN"), method = "initWidgetsNormal")
     private void addButtonTwo(int y, int spacingY, CallbackInfo ci) {
-        if (Main.LOAD_TWO == true) {
+        if (Main.LOAD_TWO) {
             this.addDrawableChild(new TexturedButtonWidget(this.width / 2 - 124, y + spacingY * 1, 20, 20, 0, 0, 20, Main.TEXTURE_TWO, 32, 64, (button) -> {
                 try {
                     Desktop.getDesktop().browse(java.net.URI.create(Main.URL_TWO));
-                } catch (IOException e) {
-                    e.printStackTrace();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-                if (Main.CLOSE_ON_USE_TWO == true) {
+                if (Main.CLOSE_ON_USE_TWO) {
                     this.client.scheduleStop();
                 }
 
@@ -64,17 +60,15 @@ public abstract class TitleScreenMixin extends Screen {
 
     @Inject(at = @At("RETURN"), method = "initWidgetsNormal")
     private void addButtonThree(int y, int spacingY, CallbackInfo ci) {
-        if (Main.LOAD_THREE == true) {
+        if (Main.LOAD_THREE) {
             this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 104, y, 20, 20, 0, 0, 20, Main.TEXTURE_THREE, 32, 64, (button) -> {
                 try {
                     Desktop.getDesktop().browse(java.net.URI.create(Main.URL_THREE));
-                } catch (IOException e) {
-                    e.printStackTrace();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-                if (Main.CLOSE_ON_USE_THREE == true) {
+                if (Main.CLOSE_ON_USE_THREE) {
                     this.client.scheduleStop();
                 }
 
@@ -84,17 +78,15 @@ public abstract class TitleScreenMixin extends Screen {
 
     @Inject(at = @At("RETURN"), method = "initWidgetsNormal")
     private void addButtonFour(int y, int spacingY, CallbackInfo ci) {
-        if (Main.LOAD_FOUR == true) {
+        if (Main.LOAD_FOUR) {
             this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 104, y + spacingY * 1, 20, 20, 0, 0, 20, Main.TEXTURE_FOUR, 32, 64, (button) -> {
                 try {
                     Desktop.getDesktop().browse(java.net.URI.create(Main.URL_FOUR));
-                } catch (IOException e) {
-                    e.printStackTrace();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-                if (Main.CLOSE_ON_USE_FOUR == true) {
+                if (Main.CLOSE_ON_USE_FOUR) {
                     this.client.scheduleStop();
                 }
 
