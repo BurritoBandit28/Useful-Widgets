@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "id": "usefulwidgets",
-  "version": "1.0.1",
+  "version": "1.0.2",
 
   "name": "Useful Widgets Mod",
-  "description": "This mod adds new buttons to the menu screen that load different websites depending on what you have written in the config file (By deafault it is Curseforge, PlanetMC, Modrinth and --)",
+  "description": "This mod adds new buttons to the menu screen that load different websites depending on what you have written in the config file (By deafault it is Curseforge, PlanetMC, Modrinth and YouTube",
   "authors": [
     "Burrito_Bandit28"
   ],
