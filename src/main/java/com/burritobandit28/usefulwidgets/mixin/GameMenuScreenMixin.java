@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @Mixin(GameMenuScreen.class)
@@ -96,11 +97,13 @@ public class GameMenuScreenMixin extends Screen {
     @Inject(at = @At("RETURN"), method = "initWidgets")
     private void addReloadButton(CallbackInfo ci) {
         this.addDrawableChild(new TexturedButtonWidget(this.width / 2 - 124, this.height / 4 + 96 + -16, 20, 20, 0, 0, 20, new Identifier(Main.MOD_ID, "textures/gui/reload.png"), 32, 64, (button) -> {
+
             try {
                 Main.readConfig();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
             this.client.reloadResources();
         }, new TranslatableText("widgetsmod.reload_button")));
     }

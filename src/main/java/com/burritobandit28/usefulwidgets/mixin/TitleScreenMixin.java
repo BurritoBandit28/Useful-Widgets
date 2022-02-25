@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @Mixin(TitleScreen.class)
@@ -97,11 +98,13 @@ public abstract class TitleScreenMixin extends Screen {
     @Inject(at = @At("RETURN"), method = "initWidgetsNormal")
     private void addReloadButton(int y, int spacingY, CallbackInfo ci) {
         this.addDrawableChild(new TexturedButtonWidget(this.width / 2 - 148, (this.height / 4 + 48) + 72 + 12, 20, 20, 0, 0, 20, new Identifier(Main.MOD_ID, "textures/gui/reload.png"), 32, 64, (button) -> {
+
             try {
                 Main.readConfig();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
             this.client.reloadResources();
         }, new TranslatableText("widgetsmod.reload_button")));
     }
