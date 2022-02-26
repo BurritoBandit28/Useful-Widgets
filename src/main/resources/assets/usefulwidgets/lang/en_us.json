@@ -1,7 +1,24 @@
 {
-  "widgetsmod.button_one": "Open URL 1",
-  "widgetsmod.button_two": "Open URL 2",
-  "widgetsmod.button_three": "Open URL 3",
-  "widgetsmod.button_four": "Open URL 4",
-  "widgetsmod.reload_button": "Reload all widgets"
+  "usefulwidgets.button_one": "Open URL 1",
+  "usefulwidgets.button_two": "Open URL 2",
+  "usefulwidgets.button_three": "Open URL 3",
+  "usefulwidgets.button_four": "Open URL 4",
+  "usefulwidgets.reload_button": "Reload all widgets",
+
+  "title.usefulwidgets.config": "Useful Widgets Mod Config",
+
+  "option.usefulwidgets.load": "Load widget?",
+  "option.usefulwidgets.url": "Link to load on use",
+  "option.usefulwidgets.texture":"Texture to load",
+  "option.usefulwidgets.close_on_use": "Close on use?",
+
+  "option.usefulwidgets.load.tooltip": "Whether or not the widget \nshould even be loaded",
+  "option.usefulwidgets.url.tooltip": "The url (or shortcut url, file path etc) that \nshould be opened when the widget is pressed",
+  "option.usefulwidgets.texture.tooltip":"The texture the widget should display",
+  "option.usefulwidgets.close_on_use.tooltip": "If the game should close \nonce the widget is pressed",
+
+  "usefulwidgets.button_1.settings": "Widget 1",
+  "usefulwidgets.button_2.settings": "Widget 2",
+  "usefulwidgets.button_3.settings": "Widget 3",
+  "usefulwidgets.button_4.settings": "Widget 4"
 }

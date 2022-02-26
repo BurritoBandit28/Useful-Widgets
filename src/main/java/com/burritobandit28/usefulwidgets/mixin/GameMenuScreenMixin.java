@@ -37,7 +37,7 @@ public class GameMenuScreenMixin extends Screen {
                     this.client.scheduleStop();
                 }
 
-            }, new TranslatableText("widgetsmod.button_one")));
+            }, new TranslatableText(Main.MOD_ID+".button_one")));
         }
     }
 
@@ -55,7 +55,7 @@ public class GameMenuScreenMixin extends Screen {
                     this.client.scheduleStop();
                 }
 
-            }, new TranslatableText("widgetsmod.button_two")));
+            }, new TranslatableText(Main.MOD_ID+".button_two")));
         }
     }
 
@@ -73,7 +73,7 @@ public class GameMenuScreenMixin extends Screen {
                     this.client.scheduleStop();
                 }
 
-            }, new TranslatableText("widgetsmod.button_three")));
+            }, new TranslatableText(Main.MOD_ID+".button_three")));
         }
     }
     @Inject(at = @At("RETURN"), method = "initWidgets")
@@ -90,7 +90,7 @@ public class GameMenuScreenMixin extends Screen {
                     this.client.scheduleStop();
                 }
 
-            }, new TranslatableText("widgetsmod.button_four")));
+            }, new TranslatableText(Main.MOD_ID+".button_four")));
         }
     }
 
@@ -105,7 +105,7 @@ public class GameMenuScreenMixin extends Screen {
             }
 
             this.client.reloadResources();
-        }, new TranslatableText("widgetsmod.reload_button")));
+        }, new TranslatableText(Main.MOD_ID+".reload_button")));
     }
 
 

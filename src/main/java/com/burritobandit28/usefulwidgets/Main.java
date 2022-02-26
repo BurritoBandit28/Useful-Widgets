@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class Main implements ModInitializer {
@@ -23,6 +24,9 @@ public class Main implements ModInitializer {
     public static Identifier TEXTURE_TWO;
     public static Identifier TEXTURE_THREE;
     public static Identifier TEXTURE_FOUR;
+
+    //public static ArrayList<Identifier> TEST = new ArrayList<Identifier>();
+
 
     //close or not
     public static boolean CLOSE_ON_USE_ONE;

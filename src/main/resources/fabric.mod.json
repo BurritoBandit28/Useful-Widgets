@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "usefulwidgets",
-  "version": "1.0.2",
+  "version": "1.1.0",
 
   "name": "Useful Widgets Mod",
   "description": "This mod adds new buttons to the menu screen that load different websites depending on what you have written in the config file (By deafault it is Curseforge, PlanetMC, Modrinth and YouTube)",
@@ -10,7 +10,8 @@
   ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/useful-widgets-mod",
-    "sources": "https://github.com/BurritoBandit28/Useful-Widgets"
+    "sources": "https://github.com/BurritoBandit28/Useful-Widgets",
+    "issues": "https://github.com/BurritoBandit28/Useful-Widgets/issues"
   },
 
   "license": "MIT",
@@ -20,6 +21,9 @@
   "entrypoints": {
     "main": [
       "com.burritobandit28.usefulwidgets.Main"
+    ],
+    "modmenu": [
+      "com.burritobandit28.usefulwidgets.gui.ConfigUI"
     ]
   },
   "mixins": [
