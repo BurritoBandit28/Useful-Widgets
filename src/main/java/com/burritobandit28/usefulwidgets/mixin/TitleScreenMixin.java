@@ -101,11 +101,10 @@ public abstract class TitleScreenMixin extends Screen {
 
             try {
                 Main.readConfig();
+                Main.readCommandConfig();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            this.client.reloadResources();
         }, new TranslatableText(Main.MOD_ID+".reload_button")));
     }
 }

@@ -6,8 +6,10 @@
   "mixins": [
   ],
   "client": [
+    "GameMenuScreenMixin",
     "TitleScreenMixin",
-    "GameMenuScreenMixin"
+    "CreativeInventoryMixin",
+    "SurvivalInventoryMixin"
   ],
   "injectors": {
     "defaultRequire": 1

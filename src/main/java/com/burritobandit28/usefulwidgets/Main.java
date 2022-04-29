@@ -1,6 +1,7 @@
 package com.burritobandit28.usefulwidgets;
 
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,6 +26,11 @@ public class Main implements ModInitializer {
     public static Identifier TEXTURE_THREE;
     public static Identifier TEXTURE_FOUR;
 
+    public static Identifier TEXTURE_ONE_COMMAND;
+    public static Identifier TEXTURE_TWO_COMMAND;
+    public static Identifier TEXTURE_THREE_COMMAND;
+    public static Identifier TEXTURE_FOUR_COMMAND;
+
     //public static ArrayList<Identifier> TEST = new ArrayList<Identifier>();
 
 
@@ -40,11 +46,40 @@ public class Main implements ModInitializer {
     public static boolean LOAD_THREE;
     public static boolean LOAD_FOUR;
 
+    public static boolean LOAD_ONE_COMMAND;
+    public static boolean LOAD_TWO_COMMAND;
+    public static boolean LOAD_THREE_COMMAND;
+    public static boolean LOAD_FOUR_COMMAND;
+
+    //commands
+    public static String COMMAND_ONE;
+    public static String COMMAND_TWO;
+    public static String COMMAND_THREE;
+    public static String COMMAND_FOUR;
+
     //config
     public static File DIR = new File("./config/usefulwidgets/");
+    public static File COMMAND_DIR = new File("./config/usefulwidgets/mcfunctions");
     public static File FILE = new File("./config/usefulwidgets/config.properties");
-    private static final Logger LOGGER = LogManager.getLogger("Useful Widgets");
+    public static File COMMAND_FILE = new File("./config/usefulwidgets/cmd_config.properties");
+    public static final Logger LOGGER = LogManager.getLogger("Useful Widgets");
     public static final Properties cfg = new Properties();
+    public static final Properties cfg2 = new Properties();
+
+
+    //I hate this code as well btw, you're not alone
+    public static void runMcfunction(String mcfunction) throws IOException {
+        FileReader fr = new FileReader("./config/usefulwidgets/mcfunctions/"+ mcfunction);
+        BufferedReader br = new BufferedReader(fr);
+        String line = "";
+        while (line != null) {
+            line = br.readLine();
+            if (line != null && !line.equals("") && !line.startsWith("#")) {
+                MinecraftClient.getInstance().player.sendChatMessage("/"+line);
+                LOGGER.info("Executed /"+line);
+            }
+        }
+    }
 
     public static void readConfig() throws IOException {
 
@@ -127,6 +162,79 @@ public class Main implements ModInitializer {
         }
     }
 
+    public static void readCommandConfig() throws IOException {
+
+        //Load config
+        try (InputStream input = new FileInputStream(COMMAND_FILE)) {
+
+            cfg2.load(input);
+
+            //Button 1
+            LOAD_ONE_COMMAND = Boolean.parseBoolean(cfg2.getProperty("load_1"));
+            if (LOAD_ONE_COMMAND) {
+
+                COMMAND_ONE = cfg2.getProperty("command_1");
+                LOGGER.info("Command 1 set to " + COMMAND_ONE);
+
+                TEXTURE_ONE_COMMAND = new Identifier(MOD_ID, "textures/gui/" + cfg2.getProperty("texture_1"));
+                LOGGER.info("Command texture 1 set to " + cfg2.getProperty("texture_1"));
+
+
+            } else {
+                LOGGER.info("Command button 1 set not to load");
+                TEXTURE_ONE_COMMAND = new Identifier(MOD_ID, "textures/gui/.png");
+            }
+
+            //Button 2
+            LOAD_TWO_COMMAND = Boolean.parseBoolean(cfg2.getProperty("load_2"));
+            if (LOAD_TWO_COMMAND) {
+
+                COMMAND_TWO = cfg2.getProperty("command_2");
+                LOGGER.info("Command 2 set to " + COMMAND_TWO);
+
+                TEXTURE_TWO_COMMAND = new Identifier(MOD_ID, "textures/gui/" + cfg2.getProperty("texture_2"));
+                LOGGER.info("Command texture 2 set to " + cfg2.getProperty("texture_2"));
+
+
+            } else {
+                LOGGER.info("Command button 1 set not to load");
+                TEXTURE_TWO_COMMAND = new Identifier(MOD_ID, "textures/gui/.png");
+            }
+
+            //Button 3
+            LOAD_THREE_COMMAND = Boolean.parseBoolean(cfg2.getProperty("load_3"));
+            if (LOAD_THREE_COMMAND) {
+
+                COMMAND_THREE = cfg2.getProperty("command_3");
+                LOGGER.info("Command 3 set to " + COMMAND_THREE);
+
+                TEXTURE_THREE_COMMAND = new Identifier(MOD_ID, "textures/gui/" + cfg2.getProperty("texture_3"));
+                LOGGER.info("Command texture 3 set to " + cfg2.getProperty("texture_3"));
+
+
+            } else {
+                LOGGER.info("Command button 3 set not to load");
+                TEXTURE_THREE_COMMAND = new Identifier(MOD_ID, "textures/gui/.png");
+            }
+
+            //Button 4
+            LOAD_FOUR_COMMAND = Boolean.parseBoolean(cfg2.getProperty("load_4"));
+            if (LOAD_FOUR_COMMAND) {
+
+                COMMAND_FOUR = cfg2.getProperty("command_4");
+                LOGGER.info("Command 4 set to " + COMMAND_FOUR);
+
+                TEXTURE_FOUR_COMMAND = new Identifier(MOD_ID, "textures/gui/" + cfg2.getProperty("texture_4"));
+                LOGGER.info("Command texture 4 set to " + cfg2.getProperty("texture_4"));
+
+
+            } else {
+                LOGGER.info("Command button 4 set not to load");
+                TEXTURE_FOUR_COMMAND = new Identifier(MOD_ID, "textures/gui/.png");
+            }
+        }
+    }
+
     public static void writeConfig() throws IOException {
 
         FileWriter CONFIG_WRITER = new FileWriter(FILE);
@@ -151,27 +259,63 @@ public class Main implements ModInitializer {
 
     }
 
+    public static void writeCommandConfig() throws IOException {
+        FileWriter CONFIG_WRITER = new FileWriter(COMMAND_FILE);
+        CONFIG_WRITER.write("""
+                load_1=true
+                command_1=/kill @e[type=!player, type=!armor_stand, type=!item_frame, type=!marker]
+                texture_1=commands/skull.png
+                load_2=true
+                command_2=/gamemode creative
+                texture_2=commands/creative.png
+                load_3=true
+                command_3=/gamemode survival
+                texture_3=commands/survival.png
+                load_4=true
+                command_4=example.mcfunction
+                texture_4=commands/slash.png""");
+        CONFIG_WRITER.close();
+        writeExampleMcfunction();
+    }
+
+    public static void writeExampleMcfunction() throws IOException {
+        FileWriter CONFIG_WRITER = new FileWriter(COMMAND_DIR + "/example.mcfunction");
+        CONFIG_WRITER.write("""
+                say this is being printed by an mcfunction file
+                effect give @s glowing
+                                
+                #lines starting with a "#" don't get executed. You can also put enters in your file.
+                                
+                summon silverfish ~ ~ ~
+                """);
+        CONFIG_WRITER.close();
+    }
+
 
 
 
 
     @Override
     public void onInitialize() {
+
         LOGGER.info("Useful Widgets loading...");
 
         if (!DIR.exists()) {
-            LOGGER.info("Config directory and file don't exist!");
+            LOGGER.info("Config directory and files don't exist!");
             DIR.mkdir();
+            COMMAND_DIR.mkdir();
             LOGGER.info("Config directory made!");
             try {
                 FILE.createNewFile();
                 writeConfig();
-                LOGGER.info("Config file made!");
+                COMMAND_FILE.createNewFile();
+                writeCommandConfig();
+                LOGGER.info("Config files made!");
             }
             catch (IOException e) {e.printStackTrace();}
         }
         else {
-            LOGGER.info("Config folder exists, checking for config file...");
+            LOGGER.info("Config folder exists, checking for config files...");
 
         }
         if (DIR.exists() && !FILE.exists()) {
@@ -187,9 +331,27 @@ public class Main implements ModInitializer {
             LOGGER.info("Config file exists, reading...");
 
         }
+        if (DIR.exists() && !COMMAND_FILE.exists()) {
+            try {
+                LOGGER.info("Command config file doesn't exist!");
+                COMMAND_FILE.createNewFile();
+                writeCommandConfig();
+                LOGGER.info("Command config file made! Now reading...");
+            }
+            catch (IOException e) {e.printStackTrace();}
+        }
+        else {
+            LOGGER.info("Command config file exists, reading...");
+        }
+
+        if (DIR.exists() && !COMMAND_DIR.exists()) {
+                COMMAND_DIR.mkdir();
+        }
+
 
         try {
             readConfig();
+            readCommandConfig();
         } catch (IOException e) {
             e.printStackTrace();
         }
