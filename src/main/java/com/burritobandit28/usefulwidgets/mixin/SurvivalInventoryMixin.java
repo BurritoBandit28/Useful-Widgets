@@ -2,9 +2,11 @@ package com.burritobandit28.usefulwidgets.mixin;
 
 import com.burritobandit28.usefulwidgets.Main;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
@@ -16,17 +18,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.io.IOException;
 
 @Mixin(InventoryScreen.class)
-public class SurvivalInventoryMixin extends Screen {
+public abstract class SurvivalInventoryMixin extends AbstractInventoryScreen<PlayerScreenHandler> {
 
-    protected SurvivalInventoryMixin(Text title) {
-        super(title);
+
+    public SurvivalInventoryMixin(PlayerScreenHandler screenHandler, PlayerInventory playerInventory, Text text) {
+        super(screenHandler, playerInventory, text);
     }
-
 
     @Inject(at = @At("RETURN"), method = "init")
     private void loadCommandWidgetOne(CallbackInfo ci) {
         if (Main.LOAD_ONE_COMMAND) {
-            this.addDrawableChild(new TexturedButtonWidget(this.width / 2 - 70, this.height / 4 + 48 - 84, 20, 20, 0, 0, 20, Main.TEXTURE_ONE_COMMAND, 32, 64, (button) -> {
+            this.addDrawableChild(new TexturedButtonWidget(this.x, (25 + (this.y - 52)), 20, 20, 0, 0, 20, Main.TEXTURE_ONE_COMMAND, 32, 64, (button) -> {
+
+                System.out.println(this.y);
 
                 if (Main.COMMAND_ONE.endsWith(".mcfunction")) {
                     try {
@@ -46,7 +50,7 @@ public class SurvivalInventoryMixin extends Screen {
     @Inject(at = @At("RETURN"), method = "init")
     private void loadCommandWidgetTwo(CallbackInfo ci) {
         if (Main.LOAD_TWO_COMMAND) {
-            this.addDrawableChild(new TexturedButtonWidget(this.width / 2 - 48, this.height / 4 + 48 - 84, 20, 20, 0, 0, 20, Main.TEXTURE_TWO_COMMAND, 32, 64, (button) -> {
+            this.addDrawableChild(new TexturedButtonWidget(this.x + 25, (25 + (this.y - 52)), 20, 20, 0, 0, 20, Main.TEXTURE_TWO_COMMAND, 32, 64, (button) -> {
 
                 if (Main.COMMAND_TWO.endsWith(".mcfunction")) {
                     try {
@@ -67,7 +71,7 @@ public class SurvivalInventoryMixin extends Screen {
     @Inject(at = @At("RETURN"), method = "init")
     private void loadCommandWidgetThree(CallbackInfo ci) {
         if (Main.LOAD_THREE_COMMAND) {
-            this.addDrawableChild(new TexturedButtonWidget(this.width / 2 - 25, this.height / 4 + 48 - 84, 20, 20, 0, 0, 20, Main.TEXTURE_THREE_COMMAND, 32, 64, (button) -> {
+            this.addDrawableChild(new TexturedButtonWidget(this.x + 50, (25 + (this.y - 52)), 20, 20, 0, 0, 20, Main.TEXTURE_THREE_COMMAND, 32, 64, (button) -> {
 
                 if (Main.COMMAND_THREE.endsWith(".mcfunction")) {
                     try {
@@ -88,7 +92,7 @@ public class SurvivalInventoryMixin extends Screen {
     @Inject(at = @At("RETURN"), method = "init")
     private void loadCommandWidgetFour(CallbackInfo ci) {
         if (Main.LOAD_FOUR_COMMAND) {
-            this.addDrawableChild(new TexturedButtonWidget(this.width / 2 - 2, this.height / 4 + 48 - 84, 20, 20, 0, 0, 20, Main.TEXTURE_FOUR_COMMAND, 32, 64, (button) -> {
+            this.addDrawableChild(new TexturedButtonWidget(this.x + 75, (25 + (this.y - 52)), 20, 20, 0, 0, 20, Main.TEXTURE_FOUR_COMMAND, 32, 64, (button) -> {
 
                 if (Main.COMMAND_FOUR.endsWith(".mcfunction")) {
                     try {
@@ -108,7 +112,7 @@ public class SurvivalInventoryMixin extends Screen {
 
     @Inject(at = @At("RETURN"), method = "init")
     private void addReloadButton(CallbackInfo ci) {
-        this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 21, this.height / 4 + 48 - 84, 20, 20, 0, 0, 20, new Identifier(Main.MOD_ID, "textures/gui/commands/reload.png"), 32, 64, (button) -> {
+        this.addDrawableChild(new TexturedButtonWidget(this.x + 100, (25 + (this.y - 52)), 20, 20, 0, 0, 20, new Identifier(Main.MOD_ID, "textures/gui/commands/reload.png"), 32, 64, (button) -> {
 
             try {
                 Main.readCommandConfig();
